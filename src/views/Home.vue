@@ -12,14 +12,13 @@
 
     <section class="content-feed">
       <Order />
-      <FeedNews />
+      <FeedNews :term="term" />
     </section>
   </div>
 </template>
 
 <script>
 import Order from "./Order.vue";
-import FeedNews from "@/components/FeedNews.vue";
 
 export default {
   name: "Home",
@@ -30,11 +29,11 @@ export default {
   },
   components: {
     Order,
-    FeedNews,
   },
   methods: {
     getNewsByTerm() {
-      console.log("Puxar dados por " + this.term);
+      // this.term = this.inputTerm;
+      console.log(this.term);
     },
   },
 };
@@ -81,6 +80,10 @@ button {
 
 .pesquisa button:hover {
   background-color: var(--azul-escuro);
+}
+
+.pesquisa button:active {
+  background-color: var(--azul);
 }
 
 .content-feed {

@@ -1,33 +1,41 @@
 <template>
-  <div class="feed">{{ api }}</div>
+  <div class="feed" v-if="news">{{ news }}</div>
 </template>
 
 <script>
 export default {
   name: "FeedNews",
+  props: ["term", "sort"],
   data() {
     return {
-      api: null,
+      news: null,
     };
   },
   methods: {
     fetchNews() {
       const token = "e6d3d4e756f248efa51c0c33e01289ad";
       fetch(
-        `https://newsapi.org/v2/top-headlines?sources=google-news-br&apiKey=${token}`
+        `https://newsapi.org/v2/everything?q=${
+          this.term ? this.term : "Apple"
+        }&from=2021-05-22&sortBy=${
+          this.sort ? this.sort : "popularity"
+        }&apiKey=${token}`
       )
         .then((r) => r.json())
         .then((r) => {
-          this.api = r;
+          this.news = r;
         });
     },
   },
   created() {
     this.fetchNews();
   },
+  watch: {
+    options() {
+      this.fetchNews();
+    },
+  },
 };
-
-// Por um watch nas opções do Feed para quando mudar no Order
 </script>
 
 <style>

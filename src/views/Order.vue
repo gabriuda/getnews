@@ -50,6 +50,12 @@ export default {
       // colocar Feed como componente global para sempre alterar as opções no watch do feed, para fazer o novo fetch automaticamente
     };
   },
+  watch: {
+    order() {
+      // this.options.sort = this.order;
+      console.log("wsrgr");
+    },
+  },
 };
 </script>
 

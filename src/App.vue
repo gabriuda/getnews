@@ -45,7 +45,8 @@ a {
   --branco2: #eeeeee;
   --preto: #1b262c;
   --cinza: #222831;
-  --shadow: 20px 20px 20px 0px rgba(0, 0, 0, 0.1);
+  --cinza-claro: #889297;
+  --shadow: 2px 4px 15px 0px rgba(0, 0, 0, 0.15);
 }
 
 /* Fontes */

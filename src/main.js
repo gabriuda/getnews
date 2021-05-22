@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './routes/index.js';
-import FeedNews from './components/FeedNews.vue';
-
-Vue.component('FeedNews', FeedNews);
+import PageLoading from './components/PageLoading.vue';
 
 Vue.config.productionTip = false
+
+Vue.component("PageLoading", PageLoading);
 
 new Vue({
   router,

@@ -40,13 +40,39 @@ a {
 /* Cores */
 :root {
   --azul: #3e64ff;
+  --azul-escuro: #244df2;
   --branco: #ffffff;
+  --branco2: #eeeeee;
+  --preto: #1b262c;
+  --cinza: #222831;
+  --shadow: 20px 20px 20px 0px rgba(0, 0, 0, 0.1);
 }
 
 /* Fontes */
 :root {
   --font-hind: "Hind Siliguri", sans-serif;
   --font-mulish: "Mulish", sans-serif;
+}
+
+.titulo {
+  font-family: var(--font-hind);
+  color: var(--preto);
+  font-size: 3.5rem;
+  line-height: 1;
+}
+
+.subtitulo {
+  font-family: var(--font-hind);
+  color: var(--preto);
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.paragrafo {
+  font-family: var(--font-mulish);
+  color: var(--cinza);
+  font-size: 1rem;
+  line-height: 1.4;
 }
 
 /* Layout */

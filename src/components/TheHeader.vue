@@ -43,12 +43,24 @@ export default {
   font-family: var(--font-mulish);
   font-size: 1.2rem;
   color: var(--branco);
+  position: relative;
   padding: 10px 15px;
+  transition: 0.3s;
   gap: 32px;
 }
 
 .btn-git-link {
-  background: url("../assets/seta.svg") no-repeat center right;
-  padding-right: 25px !important;
+  background: url("../assets/seta.svg") no-repeat;
+  background-position: 93% 50%;
+  padding-right: 30px !important;
+  transition: 0.3s;
+}
+
+.btn-git-link:hover {
+  background-position: 100% 50%;
+}
+
+.menu li a.router-link-active {
+  text-decoration: underline;
 }
 </style>

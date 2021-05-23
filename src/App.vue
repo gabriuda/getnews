@@ -82,4 +82,14 @@ a {
   margin: 0 auto;
   padding: 20px;
 }
+
+/* Responsivo */
+@media (max-width: 840px) {
+  .titulo {
+    font-size: 2rem;
+  }
+  .subtitulo {
+    font-size: 1.5rem;
+  }
+}
 </style>

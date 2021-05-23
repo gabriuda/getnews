@@ -1,7 +1,9 @@
 <template>
   <header class="header">
     <div class="header-container">
-      <router-link to="/"><img src="@/assets/logo.svg" /></router-link>
+      <router-link to="/" class="logo"
+        ><img src="@/assets/logo.svg"
+      /></router-link>
       <nav>
         <ul class="menu">
           <li>
@@ -62,5 +64,14 @@ export default {
 
 .menu li a.router-link-active {
   text-decoration: underline;
+}
+
+@media (max-width: 730px) {
+  .logo {
+    max-width: 160px;
+  }
+  .menu li a {
+    font-size: 1rem;
+  }
 }
 </style>

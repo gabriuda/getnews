@@ -10,7 +10,10 @@
     </form>
 
     <div class="content-feed">
-      <div class="order-container">
+      <button @click="active = !active" class="btn-definicoes">
+        Filtragem
+      </button>
+      <div class="order-container" :id="active">
         <h2 class="order-titulo">Definições</h2>
         <ul class="order-lista">
           <li>
@@ -37,6 +40,7 @@
           </li>
         </ul>
       </div>
+
       <div v-if="loading" class="loading-container">
         <page-loading></page-loading>
       </div>
@@ -79,6 +83,7 @@ export default {
       de: null,
       ate: null,
       filtroPadrao: true,
+      active: true,
     };
   },
   filters: {
@@ -131,12 +136,16 @@ export default {
       const actualDate = new Date();
       return this.formatDate(actualDate);
     },
+    showFilter() {
+      if (window.innerWidth < 730) this.active = false;
+    },
   },
   watch: {
     qtd() {
       this.fetchNews();
     },
     term() {
+      this.active = false;
       this.fetchNews();
     },
     de() {
@@ -152,6 +161,7 @@ export default {
     },
   },
   created() {
+    this.showFilter();
     return this.fetchNews();
   },
 };
@@ -191,20 +201,44 @@ button {
   transition: 0.3s;
 }
 
-.pesquisa button:hover {
+.btn-definicoes {
+  font-family: var(--font-mulish);
+  color: var(--branco);
+  background: var(--azul);
+  padding: 10px 20px;
+  border: none;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: none;
+}
+
+.pesquisa button:hover,
+.btn-definicoes:hover {
   background-color: var(--azul-escuro);
 }
 
-.pesquisa button:active {
+.pesquisa button:active,
+.btn-definicoes:active {
   background-color: var(--azul);
 }
 
 .order-container {
   background: var(--branco2);
   box-shadow: var(--shadow);
-  padding: 30px;
+  padding: 0 30px;
   border-radius: 8px;
-  height: 400px;
+  height: 0;
+  transition: 0.3s;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.order-container#true {
+  visibility: visible;
+  padding: 30px;
+  height: 300px;
+  opacity: 1;
 }
 
 .order-titulo {
@@ -271,9 +305,6 @@ button {
 
 .feed li:first-child {
   grid-column: 1 / -1;
-}
-
-.feed li:first-child .feed-img {
 }
 
 .feed li:first-child p {
@@ -377,5 +408,49 @@ button {
 .feed-enter-active,
 .feed-leave-active {
   transition: all 0.3s;
+}
+
+@media (max-width: 1160px) {
+  .btn-definicoes {
+    display: initial;
+  }
+  .loading-container {
+    top: 100px;
+  }
+  .content-feed {
+    grid-auto-columns: 1fr;
+  }
+  .order-container {
+    margin-bottom: 30px;
+  }
+  .feed {
+    grid-column: 1;
+  }
+  .feed-item {
+    padding: 20px;
+  }
+  .feed-img {
+    margin: -20px -20px 20px;
+  }
+  .btn-detalhes,
+  .btn-noticia {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 730px) {
+  .pesquisa {
+    grid-template-columns: auto 100px;
+  }
+  .feed {
+    grid-template-columns: 1fr;
+  }
+  .feed li:first-child p {
+    display: none;
+  }
+
+  .feed li:first-child .btn-detalhes {
+    visibility: visible;
+  }
 }
 </style>

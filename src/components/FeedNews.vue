@@ -40,9 +40,9 @@
           </li>
         </ul>
       </div>
-
+      {{noticia}}
       <div v-if="loading" class="loading-container">
-        <page-loading></page-loading>
+        <PageLoading />
       </div>
       <transition name="feed">
         <ul class="feed" v-if="news">
@@ -57,7 +57,9 @@
             <h2 class="subtitulo s-feed">{{ item.titulo }}</h2>
             <p class="paragrafo p-feed">{{ item.introducao }}</p>
             <div class="btns-feed">
-              <button class="btn-detalhes">Mais detalhes</button>
+              <button class="btn-detalhes" @click="fetchNew(item.produto_id)">
+                Mais detalhes
+              </button>
               <a :href="item.link" target="_blank"
                 ><button class="btn-noticia">Notícia completa</button></a
               >
@@ -78,12 +80,14 @@ export default {
     return {
       loading: true,
       news: null,
+      noticia: null,
       term: null,
       qtd: 9,
       de: null,
       ate: null,
       filtroPadrao: true,
-      active: true,
+      active: false,
+      windowWidth: null,
     };
   },
   filters: {
@@ -114,6 +118,15 @@ export default {
           this.loading = false;
         });
     },
+    fetchNew(produto_id) {
+      fetch(
+        `http://servicodados.ibge.gov.br/api/v3/noticias/?idproduto=${produto_id}`
+      )
+        .then((r) => r.json())
+        .then((r) => {
+          this.noticia = r;
+        });
+    },
     fetchPadrao() {
       this.de = null;
       this.ate = null;
@@ -137,7 +150,11 @@ export default {
       return this.formatDate(actualDate);
     },
     showFilter() {
-      if (window.innerWidth < 730) this.active = false;
+      if (this.windowWidth >= 1143) this.active = true;
+      if (this.windowWidth <= 1143) this.active = false;
+    },
+    getWindowWidth() {
+      this.windowWidth = document.documentElement.clientWidth;
     },
   },
   watch: {
@@ -145,7 +162,7 @@ export default {
       this.fetchNews();
     },
     term() {
-      this.active = false;
+      if (this.windowWidth <= 1143) this.active = false;
       this.fetchNews();
     },
     de() {
@@ -163,6 +180,14 @@ export default {
   created() {
     this.showFilter();
     return this.fetchNews();
+  },
+  mounted() {
+    this.$nextTick(() => {
+      window.addEventListener("resize", this.getWindowWidth);
+      window.addEventListener("resize", this.showFilter);
+      this.getWindowWidth();
+      this.showFilter();
+    });
   },
 };
 </script>

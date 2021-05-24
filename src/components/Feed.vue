@@ -19,8 +19,8 @@
             ><button class="btn-noticia">Notícia completa</button></a
           >
         </div>
-        <ModalNew :noticia="noticia" @emitModal="getModal" />
       </li>
+      <ModalNew :noticia="noticia" @emitModal="getModal" />
     </ul>
   </transition>
 </template>
@@ -42,8 +42,8 @@ export default {
     ModalNew,
   },
   methods: {
-    abrirModal(inf) {
-      this.noticia = inf;
+    abrirModal(item) {
+      this.noticia = item;
     },
     getModal(noticia) {
       this.noticia = noticia;

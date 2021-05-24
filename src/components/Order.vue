@@ -189,6 +189,7 @@ export default {
 @media (max-width: 1160px) {
   .btn-definicoes {
     display: initial;
+    width: 100%;
   }
   .order-container {
     margin-bottom: 30px;

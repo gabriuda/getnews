@@ -1,9 +1,11 @@
 <template>
-  <transition name="modal">
-    <div class="modal-container" v-if="noticia">
+  <transition name="feed">
+    <div class="modal-container" v-if="noticia" @click="emitModal">
       <div class="modal">
         <button class="btn-fechar" @click="emitModal">&times;</button>
-        <img :src="noticia.imagens | formatImage" :alt="noticia.titulo" />
+        <div class="modal-img">
+          <img :src="noticia.imagens | formatImage" :alt="noticia.titulo" />
+        </div>
         <b class="feed-data">{{ noticia.data_publicacao }}</b>
         <h1 class="subtitulo">{{ noticia.titulo }}</h1>
         <p class="paragrafo">{{ noticia.introducao }}</p>
@@ -28,9 +30,13 @@ export default {
     };
   },
   methods: {
-    emitModal() {
-      this.noticiaComponente = null;
-      this.$emit("emitModal", this.noticiaComponente);
+    emitModal(event) {
+      const outsideModal = document.querySelector(".modal-container");
+      const btnCloseModal = document.querySelector(".btn-fechar");
+      if (event.target === outsideModal || event.target === btnCloseModal) {
+        this.noticiaComponente = null;
+        this.$emit("emitModal", this.noticiaComponente);
+      }
     },
   },
 };
@@ -39,7 +45,7 @@ export default {
 <style>
 .modal-container {
   position: fixed;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.5);
   top: 0;
   left: 0;
   width: 100%;
@@ -54,6 +60,65 @@ export default {
   background: var(--branco);
   padding: 30px;
   border-radius: 8px;
-  width: 80vw;
+  width: 50vw;
+  position: relative;
+}
+
+.btn-fechar {
+  background: var(--azul);
+  color: var(--branco);
+  border: none;
+  border-radius: 8px;
+  font-size: 1.5rem;
+  padding: 8px 16px;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-fechar:hover {
+  background: var(--azul-escuro);
+}
+
+.btn-fechar:active {
+  background: var(--azul);
+}
+
+.modal-img {
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.modal-img img {
+  object-fit: cover;
+  width: 100%;
+  height: 360px;
+}
+
+.modal h1 {
+  margin: 10px 0px 20px;
+}
+
+.modal p {
+  margin-bottom: 20px;
+}
+
+.modal a {
+  float: right;
+}
+
+@media (max-width: 1000px) {
+  .modal {
+    width: 70vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .modal {
+    width: 90vw;
+  }
 }
 </style>

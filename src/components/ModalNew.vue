@@ -2,8 +2,8 @@
   <transition name="modal">
     <div class="modal-container" v-if="noticia">
       <div class="modal">
-        <button class="btn-fechar">&times;</button>
-        <img :src="noticia.imagens | formatImage" alt="" />
+        <button class="btn-fechar" @click="emitModal">&times;</button>
+        <img :src="noticia.imagens | formatImage" :alt="noticia.titulo" />
         <b class="feed-data">{{ noticia.data_publicacao }}</b>
         <h1 class="subtitulo">{{ noticia.titulo }}</h1>
         <p class="paragrafo">{{ noticia.introducao }}</p>
@@ -22,10 +22,16 @@ export default {
   name: "ModalNew",
   mixins: [formatImage],
   props: ["noticia"],
+  data() {
+    return {
+      noticiaComponente: this.noticia,
+    };
+  },
   methods: {
-    // outsideClick(event) {
-    //    if (event.currentTarget === target)
-    // }
+    emitModal() {
+      this.noticiaComponente = null;
+      this.$emit("emitModal", this.noticiaComponente);
+    },
   },
 };
 </script>
@@ -33,7 +39,7 @@ export default {
 <style>
 .modal-container {
   position: fixed;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.1);
   top: 0;
   left: 0;
   width: 100%;

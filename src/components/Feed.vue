@@ -12,11 +12,14 @@
         <h2 class="subtitulo s-feed">{{ item.titulo }}</h2>
         <p class="paragrafo p-feed">{{ item.introducao }}</p>
         <div class="btns-feed">
-          <button class="btn-detalhes">Mais detalhes</button>
+          <button class="btn-detalhes" @click="abrirModal(item)">
+            Mais detalhes
+          </button>
           <a :href="item.link" target="_blank"
             ><button class="btn-noticia">Notícia completa</button></a
           >
         </div>
+        <ModalNew :noticia="noticia" @emitModal="getModal" />
       </li>
     </ul>
   </transition>
@@ -24,11 +27,28 @@
 
 <script>
 import formatImage from "@/mixins/formatImage.js";
+import ModalNew from "./ModalNew.vue";
 
 export default {
   name: "Feed",
   props: ["news", "term"],
   mixins: [formatImage],
+  data() {
+    return {
+      noticia: null,
+    };
+  },
+  components: {
+    ModalNew,
+  },
+  methods: {
+    abrirModal(inf) {
+      this.noticia = inf;
+    },
+    getModal(noticia) {
+      this.noticia = noticia;
+    },
+  },
 };
 </script>
 

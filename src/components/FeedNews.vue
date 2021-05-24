@@ -8,7 +8,6 @@
         <PageLoading />
       </div>
       <Feed :news="news" :term="term" />
-      <!-- <ModalNew :noticia="noticia" /> -->
     </div>
   </div>
 </template>
@@ -19,7 +18,6 @@ import Feed from "./Feed.vue";
 import Search from "./Search.vue";
 import Order from "./Order.vue";
 import windowWidth from "@/mixins/windowWidth.js";
-// import ModalNew from "./ModalNew.vue";
 export default {
   name: "FeedNews",
   mixins: [windowWidth],
@@ -28,7 +26,6 @@ export default {
     PageLoading,
     Search,
     Order,
-    // ModalNew,
   },
   data() {
     return {
@@ -62,9 +59,6 @@ export default {
     },
     getTerm(term) {
       this.term = term;
-    },
-    abrirModal(inf) {
-      this.noticia = inf;
     },
   },
   watch: {

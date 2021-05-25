@@ -44,7 +44,7 @@ export default {
       fetch(
         `http://servicodados.ibge.gov.br/api/v3/noticias/${
           this.term ? "?busca=" + this.term : ""
-        }?qtd=${this.options[0] - 1 ? this.options[0] - 1 : 9}${
+        }?qtd=${this.options[0] ? this.options[0] - 1 : 9}${
           this.options[1] ? "?de=" + this.options[1] : ""
         }${this.options[2] ? "?ate=" + this.options[2] : ""}`
       )

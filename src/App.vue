@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <TheHeader />
-    <router-view class="content"></router-view>
+    <transition name="page" mode="out-in">
+      <router-view class="content"></router-view>
+    </transition>
   </div>
 </template>
 
@@ -91,5 +93,17 @@ a {
   .subtitulo {
     font-size: 1.5rem;
   }
+}
+
+/* Animações */
+.page-enter,
+.page-leave-to {
+  transform: translate3d(0, -20px, 0);
+  opacity: 0;
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.3s;
 }
 </style>

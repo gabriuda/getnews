@@ -42,12 +42,21 @@ export default {
     ModalNew,
   },
   methods: {
+    mostrarItens(items) {
+      console.log("Contador de itens: " + items.length);
+      // Terminar paginação
+    },
     abrirModal(item) {
       this.noticia = item;
     },
     getModal(noticia) {
       this.noticia = noticia;
     },
+  },
+  beforeUpdate() {
+    if (this.news !== null) {
+      this.mostrarItens(this.news.items);
+    }
   },
 };
 </script>

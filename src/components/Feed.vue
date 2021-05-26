@@ -36,6 +36,7 @@ export default {
   data() {
     return {
       noticia: null,
+      items: null,
     };
   },
   components: {
@@ -43,8 +44,10 @@ export default {
   },
   methods: {
     mostrarItens(items) {
-      console.log("Contador de itens: " + items.length);
-      // Terminar paginação
+      const totalItems = 9;
+      if (items.length > totalItems) {
+        items.splice(0, totalItems);
+      }
     },
     abrirModal(item) {
       this.noticia = item;
@@ -63,7 +66,6 @@ export default {
 
 <style>
 .feed {
-  grid-column: 2;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 30px;

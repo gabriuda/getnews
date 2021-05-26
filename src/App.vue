@@ -80,7 +80,7 @@ a {
 
 /* Layout */
 .content {
-  max-width: 1200px;
+  max-width: 960px;
   margin: 0 auto;
   padding: 20px;
 }

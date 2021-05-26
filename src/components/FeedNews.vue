@@ -2,13 +2,10 @@
   <div>
     <Search @emitTerm="getTerm" :fetchNews="fetchNews" />
 
-    <div class="content-feed">
-      <Order @emitOptions="getOptions" :fetchNews="fetchNews" />
-      <div v-if="loading" class="loading-container">
-        <PageLoading />
-      </div>
-      <Feed :news="news" :term="term" />
+    <div v-if="loading" class="loading-container">
+      <PageLoading />
     </div>
+    <Feed :news="news" :term="term" />
   </div>
 </template>
 
@@ -16,7 +13,6 @@
 import PageLoading from "./PageLoading.vue";
 import Feed from "./Feed.vue";
 import Search from "./Search.vue";
-import Order from "./Order.vue";
 import windowWidth from "@/mixins/windowWidth.js";
 export default {
   name: "FeedNews",
@@ -25,7 +21,6 @@ export default {
     Feed,
     PageLoading,
     Search,
-    Order,
   },
   data() {
     return {
@@ -77,13 +72,6 @@ export default {
   margin: 40px auto;
 }
 
-.content-feed {
-  display: grid;
-  grid-auto-columns: minmax(280px, 300px) 1fr;
-  gap: 0 30px;
-  position: relative;
-}
-
 .loading-container {
   position: absolute;
   right: 40%;
@@ -92,9 +80,6 @@ export default {
 @media (max-width: 1160px) {
   .loading-container {
     top: 100px;
-  }
-  .content-feed {
-    grid-auto-columns: 1fr;
   }
 }
 

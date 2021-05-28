@@ -167,6 +167,7 @@ export default {
 }
 
 .sem-resultado {
+  grid-column: 1 / -1;
   text-align: center;
   font-size: 1.2rem;
 }

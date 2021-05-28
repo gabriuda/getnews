@@ -29,7 +29,6 @@ export default {
       noticia: null,
       term: null,
       activeModal: false,
-      options: [],
     };
   },
   methods: {
@@ -39,18 +38,13 @@ export default {
       fetch(
         `http://servicodados.ibge.gov.br/api/v3/noticias/${
           this.term ? "?busca=" + this.term : ""
-        }?qtd=${this.options[0] ? this.options[0] - 1 : 9}${
-          this.options[1] ? "?de=" + this.options[1] : ""
-        }${this.options[2] ? "?ate=" + this.options[2] : ""}`
+        }?qtd=9`
       )
         .then((r) => r.json())
         .then((r) => {
           this.news = r;
           this.loading = false;
         });
-    },
-    getOptions(options) {
-      this.options = options;
     },
     getTerm(term) {
       this.term = term;
@@ -74,12 +68,13 @@ export default {
 
 .loading-container {
   position: absolute;
-  right: 40%;
+  right: 50%;
 }
 
 @media (max-width: 1160px) {
   .loading-container {
-    top: 100px;
+    top: 330px;
+    right: 40%;
   }
 }
 

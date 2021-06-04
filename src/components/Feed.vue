@@ -1,28 +1,24 @@
 <template>
-  <transition name="feed">
-    <ul class="feed" v-if="news">
-      <p class="paragrafo sem-resultado" v-if="news.items.length === 0">
-        Sem resultados para o termo "{{ term }}".
-      </p>
-      <li v-for="item in news.items" :key="item.id" class="feed-item">
-        <div class="feed-img">
-          <img :src="item.imagens | formatImage" alt="" />
-        </div>
-        <b class="feed-data">{{ item.data_publicacao }}</b>
-        <h2 class="subtitulo s-feed">{{ item.titulo }}</h2>
-        <p class="paragrafo p-feed">{{ item.introducao }}</p>
-        <div class="btns-feed">
-          <button class="btn-detalhes" @click="abrirModal(item)">
-            Mais detalhes
-          </button>
-          <a :href="item.link" target="_blank"
-            ><button class="btn-noticia">Notícia completa</button></a
-          >
-        </div>
-      </li>
-      <ModalNew :noticia="noticia" @emitModal="getModal" />
-    </ul>
-  </transition>
+  <ul class="feed" v-if="news">
+    <p class="paragrafo sem-resultado" v-if="news && news.items.length === 0">
+      Sem resultados para esta busca. Tente por outro termo.
+    </p>
+    <li v-for="item in news.items" :key="item.id" class="feed-item">
+      <div class="feed-img">
+        <img :src="item.imagens | formatImage" alt="" />
+      </div>
+      <b class="feed-data">{{ item.data_publicacao }}</b>
+      <h2 class="subtitulo s-feed">{{ item.titulo }}</h2>
+      <p class="paragrafo p-feed">{{ item.introducao }}</p>
+      <div class="btns-feed">
+        <button class="btn-detalhes" @click="abrirModal(item)">Mais detalhes</button>
+        <a :href="item.link" target="_blank">
+          <button class="btn-noticia">Notícia completa</button>
+        </a>
+      </div>
+    </li>
+    <ModalNew :noticia="noticia" @emitModal="getModal" />
+  </ul>
 </template>
 
 <script>
@@ -31,7 +27,7 @@ import ModalNew from "./ModalNew.vue";
 
 export default {
   name: "Feed",
-  props: ["news", "term"],
+  props: ["news"],
   mixins: [formatImage],
   data() {
     return {
@@ -43,12 +39,6 @@ export default {
     ModalNew,
   },
   methods: {
-    mostrarItens(items) {
-      const totalItems = 9;
-      if (items.length > totalItems) {
-        items.splice(0, totalItems);
-      }
-    },
     abrirModal(item) {
       this.noticia = item;
     },
@@ -56,11 +46,7 @@ export default {
       this.noticia = noticia;
     },
   },
-  beforeUpdate() {
-    if (this.news !== null) {
-      this.mostrarItens(this.news.items);
-    }
-  },
+
 };
 </script>
 
@@ -170,17 +156,6 @@ export default {
   grid-column: 1 / -1;
   text-align: center;
   font-size: 1.2rem;
-}
-
-.feed-enter,
-.feed-leave-to {
-  transform: translate3d(0, -20px, 0);
-  opacity: 0;
-}
-
-.feed-enter-active,
-.feed-leave-active {
-  transition: all 0.3s;
 }
 
 @media (max-width: 1160px) {

@@ -1,19 +1,24 @@
 <template>
   <div id="app">
     <TheHeader />
-    <transition name="page" mode="out-in">
-      <router-view class="content"></router-view>
-    </transition>
+    <main class="main">
+      <transition mode="out-in">
+        <router-view class="content"></router-view>
+      </transition>
+    </main>
+    <TheFooter />
   </div>
 </template>
 
 <script>
 import TheHeader from "@/components/TheHeader.vue";
+import TheFooter from "@/components/TheFooter.vue";
 
 export default {
   name: "App",
   components: {
     TheHeader,
+    TheFooter
   },
 };
 </script>
@@ -79,6 +84,16 @@ a {
 }
 
 /* Layout */
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+}
+
 .content {
   max-width: 960px;
   margin: 0 auto;
@@ -96,14 +111,21 @@ a {
 }
 
 /* Animações */
-.page-enter,
-.page-leave-to {
-  transform: translate3d(0, -20px, 0);
+.v-enter,
+.v-leave-to {
   opacity: 0;
 }
 
-.page-enter-active,
-.page-leave-active {
+.v-enter {
+  transform: translate3d(0, -20px, 0);
+}
+
+.v-leave-to {
+  transform: translate3d(0, 20px, 0);
+}
+
+.v-enter-active,
+.v-leave-active {
   transition: all 0.3s;
 }
 </style>

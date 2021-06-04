@@ -1,16 +1,21 @@
 <template>
   <div>
-    <Search @emitTerm="getTerm" :fetchNews="fetchNews" />
-
-    <div v-if="loading" class="loading-container">
-      <PageLoading />
-    </div>
-    <Feed :news="news" :term="term" />
+    <Search />
+    <transition mode="out-in">
+      <div v-if="loading" class="loading-container">
+        <PageLoading />
+      </div>
+    </transition >
+    <transition mode="out-in">
+      <Feed :news="news" />
+    </transition>
+    <PaginationNews v-if="news" :totalNews="totalNews" :newsPerPage="newsPerPage" />
   </div>
 </template>
 
 <script>
 import PageLoading from "./PageLoading.vue";
+import PaginationNews from "./PaginationNews.vue";
 import Feed from "./Feed.vue";
 import Search from "./Search.vue";
 import windowWidth from "@/mixins/windowWidth.js";
@@ -19,6 +24,7 @@ export default {
   mixins: [windowWidth],
   components: {
     Feed,
+    PaginationNews,
     PageLoading,
     Search,
   },
@@ -26,34 +32,40 @@ export default {
     return {
       loading: true,
       news: null,
+      totalNews: 0,
+      newsPerPage: 9,
       noticia: null,
-      term: null,
       activeModal: false,
     };
+  },
+  computed: {
+    url() {
+      let queryString = "";
+      for (let key in this.$route.query) {
+        queryString += `&${key}=${this.$route.query[key]}`;
+      }
+      return `?qtd=9${queryString}`;
+    }
   },
   methods: {
     fetchNews() {
       this.loading = true;
       this.news = null;
       fetch(
-        `http://servicodados.ibge.gov.br/api/v3/noticias/${
-          this.term ? "?busca=" + this.term : ""
-        }?qtd=9`
+        `http://servicodados.ibge.gov.br/api/v3/noticias/${this.url}`
       )
         .then((r) => r.json())
         .then((r) => {
           this.news = r;
+          this.totalNews = Number(r.count);
           this.loading = false;
         });
     },
-    getTerm(term) {
-      this.term = term;
-    },
   },
   watch: {
-    term() {
+    url() {
       this.fetchNews();
-    },
+    }
   },
   created() {
     return this.fetchNews();

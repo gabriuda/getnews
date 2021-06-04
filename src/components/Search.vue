@@ -3,30 +3,29 @@
     <input
       type="text"
       placeholder="Busque por qualquer termo..."
-      v-model.lazy="termComponent"
-      @change="emitTerm"
+      v-model.lazy="term"
+      @change="searchNews"
     />
-    <button @click.prevent="fetchNews"></button>
+    <button @click.prevent="searchNews"></button>
   </form>
 </template>
 
 <script>
 export default {
   name: "Search",
-  props: ["fetchNews"],
   data() {
     return {
-      termComponent: this.term,
+      term: "",
     };
   },
   methods: {
-    emitTerm() {
-      this.$emit("emitTerm", this.termComponent);
+    searchNews() {
+      this.$router.push({ query: { busca: this.term } });
     },
   },
   watch: {
     termComponent() {
-      this.fetchNews();
+      this.searchNews();
     },
   },
 };

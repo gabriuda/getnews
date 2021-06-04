@@ -1,5 +1,5 @@
 <template>
-  <transition name="feed">
+  <transition mode="out-in">
     <div class="modal-container" v-if="noticia" @click="emitModal">
       <div class="modal">
         <button class="btn-fechar" @click="emitModal">&times;</button>
@@ -54,6 +54,7 @@ export default {
   align-items: center;
   justify-content: center;
   padding: 20px;
+  z-index: 999; 
 }
 
 .modal {

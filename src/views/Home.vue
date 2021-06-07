@@ -18,6 +18,9 @@ export default {
   components: {
     FeedNews,
   },
+  created() {
+    document.title = "GetNews";
+  }
 };
 </script>
 

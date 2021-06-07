@@ -26,7 +26,7 @@
         <p class="paragrafo">
           O IBGE também disponibiliza outras APIs para o acesso à informação,
           consulte-as no link abaixo:
-          <a href="https://servicodados.ibge.gov.br/api/docs"
+          <a href="https://servicodados.ibge.gov.br/api/docs" target="_blank"
             >https://servicodados.ibge.gov.br/api/docs</a
           >
         </p>
@@ -47,6 +47,9 @@
 <script>
 export default {
   name: "Sobre",
+  created() {
+    document.title = "Sobre";
+  }
 };
 </script>
 

@@ -52,6 +52,11 @@ button {
   border: none;
   margin-right: -20px;
   outline: none;
+  transition: 0.3s;
+}
+
+.pesquisa input:focus::placeholder {
+  color: transparent;
 }
 
 .pesquisa button {

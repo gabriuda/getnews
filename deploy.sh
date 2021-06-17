@@ -1,2 +1,14 @@
 #!/usr/bin/env sh
-/usr/bin/env sh
+
+set -e
+
+npm run build
+
+cd dist
+
+git init
+git add -A
+git commit -m "Deploy"
+git push -f git@github.com:gabriuda/getnews.git master:gh-pages
+
+cd -

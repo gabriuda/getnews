@@ -20,7 +20,8 @@ export default {
   },
   methods: {
     searchNews() {
-      this.$router.push({ query: { busca: this.term } });
+      this.$router.push({ query: { busca: this.term } })
+    .catch(() => {})
     },
   },
   watch: {

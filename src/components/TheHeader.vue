@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="header-container">
-      <router-link to="/" class="logo"
+      <router-link to="/?page=1" class="logo"
         ><img src="@/assets/logo.svg"
       /></router-link>
       <nav>

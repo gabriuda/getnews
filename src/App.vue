@@ -20,6 +20,10 @@ export default {
     TheHeader,
     TheFooter
   },
+  created() {
+    this.$router.push({ query: { page: 1 } })
+    .catch(() => {});
+  }
 };
 </script>
 

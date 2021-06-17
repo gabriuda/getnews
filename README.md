@@ -1,24 +1,31 @@
-# getnews
+<h1 align="center">
+  <img src="./src/assets/logo.svg">
+</h1>
 
-## Project setup
+![online-filmes-print](./getnews.png)
+
+## Sobre
+
+Site de notícias feito como forma estudo na tecnologia VueJs, utilizando a [Api Notícias](https://servicodados.ibge.gov.br/api/docs/noticias?versao=3).
+
+## Instale as dependências
+
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Compilar para rodar no modo desenvolvimento
+
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Compilar para produção
+
 ```
 npm run build
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Licença
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
